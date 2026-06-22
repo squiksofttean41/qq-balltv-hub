@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NBA直播 · 赛程对照与观赛指南</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f7fa;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+    a {
+      color: #0d6efd;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    a:hover {
+      border-bottom-color: #0d6efd;
+    }
+
+    /* 深色头图 */
+    .hero {
+      background: linear-gradient(145deg, #0b1a2e 0%, #142b44 100%);
+      color: #f0f4fa;
+      padding: 4rem 2rem 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: #f5f7fa;
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .hero p {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 1.15rem;
+      color: #c8d6e5;
+    }
+
+    /* 浅色正文区 */
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #0b1a2e;
+      border-left: 5px solid #0d6efd;
+      padding-left: 1rem;
+    }
+
+    .intro-text {
+      font-size: 1.05rem;
+      margin-bottom: 2.2rem;
+      background: white;
+      border-radius: 20px;
+      padding: 1.8rem 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    /* 三个场景模块 — 卡片网格 */
+    .scenes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin: 2.5rem 0 3rem;
+    }
+    .scene-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 1.8rem 2.2rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+    }
+    .scene-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(13, 110, 253, 0.08);
+    }
+    .scene-card h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.9rem;
+      color: #142b44;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .scene-card h3 em {
+      font-style: normal;
+      background: #0d6efd10;
+      color: #0d6efd;
+      font-size: 0.85rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 40px;
+      margin-left: auto;
+    }
+    .scene-card p {
+      font-size: 0.98rem;
+      color: #334155;
+      margin-bottom: 1.2rem;
+    }
+    .scene-card .meta {
+      font-size: 0.88rem;
+      color: #64748b;
+      border-top: 1px solid #eef2f6;
+      padding-top: 0.9rem;
+    }
+
+    /* 常见说明 / FAQ 摘要 */
+    .faq-block {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2.2rem 2.2rem;
+      margin: 2.8rem 0 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+    .faq-block h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1.4rem;
+      color: #0b1a2e;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .faq-item {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #eef2f6;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-item strong {
+      display: block;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.2rem;
+    }
+    .faq-item p {
+      font-size: 0.96rem;
+      color: #475569;
+    }
+
+    /* 强调色链接 · 自然嵌入 */
+    .inline-link-highlight {
+      background: #f0f6ff;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    /* 底部 */
+    .footer-note {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #8a9bb5;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 2rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .container {
+        padding: 1.8rem 1rem 4rem;
+      }
+      .intro-text {
+        padding: 1.4rem;
+      }
+      .scenes-grid {
+        gap: 1.2rem;
+      }
+      .faq-block {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>NBA直播 · 观赛对照</h1>
+  <p>从日常查询、赛程对照到延伸阅读，为关注 NBA 的球迷整理一份轻量导航。</p>
+</header>
+
+<main class="container">
+
+  <!-- 核心介绍 + 自然嵌入 a 标签 -->
+  <section class="intro-text">
+    <p style="margin-bottom: 1.2rem;">
+      对于习惯在多个平台间对照赛程、实时比分以及赛后分析的球迷来说，一个稳定且信息聚合的入口能节省不少时间。
+      <a href="https://qq-balltv.com" style="font-weight: 500;">NBA直播</a> 正是这类场景下常被提及的站点之一。
+      它把比赛日历、球队动态和视频回放组织在一起，方便用户快速定位某一场焦点战或某位球员的近期表现。
+    </p>
+    <p>
+      下面从三个最常见的使用场景展开，帮助新老球迷更快了解这个工具型页面的节奏与内容分布。
+    </p>
+  </section>
+
+  <!-- 三个场景模块 -->
+  <h2 class="section-title">三个常见使用场景</h2>
+  <div class="scenes-grid">
+
+    <div class="scene-card">
+      <h3>赛程速查 <em>对照</em></h3>
+      <p>打开页面后按日期或球队筛选，可以快速看到当周或当天的比赛安排。对于跨时区的用户，列表会同时显示北京时间与当地开球时间，减少换算负担。</p>
+      <div class="meta">常用于：早间通勤、午休前快速浏览</div>
+    </div>
+
+    <div class="scene-card">
+      <h3>比分与节点回顾 <em>延伸</em></h3>
+      <p>直播结束后，页面通常保留完整的四节比分、关键球员数据以及高光片段链接。这种「比赛刚结束就能对照技术统计」的方式，很适合想要复盘战术细节的用户。</p>
+      <div class="meta">常用于：赛后点评、讨论区对照</div>
+    </div>
+
+    <div class="scene-card">
+      <h3>球队与球员追踪 <em>日常</em></h3>
+      <p>通过左侧或顶部导航进入某支球队的专属页面，能看到该队近十场的战绩、首发阵容变动以及伤病名单。对于深度关注某一球队的球迷，这个模块保持了较好的信息颗粒度。</p>
+      <div class="meta">常用于：赛季中期追踪、交易期参考</div>
+    </div>
+  </div>
+
+  <!-- 常见说明 / FAQ 摘要 (偏知识型) -->
+  <div class="faq-block">
+    <h2>📋 常见说明 · 几点对照</h2>
+
+    <div class="faq-item">
+      <strong>赛程更新频率？</strong>
+      <p>通常在北京时间每轮比赛结束后 30 分钟内更新次日赛程。季后赛、全明星等特殊阶段会提前一周放出初步时间表。</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>是否有多语言支持？</strong>
+      <p>页面以中文为主体，球队名、球员名采用国内通用译名。部分技术统计表头保留英文缩写（如 PTS、REB），方便与英文数据源对照。</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>移动端浏览体验如何？</strong>
+      <p>适配自适应布局。在手机浏览器上，赛程列表和比分卡片会纵向排列，底部导航替换为悬浮菜单，单手操作时较顺手。</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>数据来源与可靠性</strong>
+      <p>页面信息聚合自多家数据供应商，比赛时间、比分等核心字段会与联盟官方数据交叉核对。如遇临时延期，标题栏会显示黄色提示条。</p>
+    </div>
+  </div>
+
+  <!-- 再次自然嵌入 a 标签（句子中） 符合要求且不重复句式 -->
+  <p style="margin: 2rem 0 0.5rem; font-size: 1rem; color: #334155; background: #ffffffdd; padding: 1rem 1.5rem; border-radius: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+    如果你正在寻找一个可以快速对照多场赛事、查看球队轮换信息的页面，
+    <a href="https://qq-balltv.com" class="inline-link-highlight">NBA直播</a>
+    提供了按日期、球队、关键词筛选的导航结构，适合作为日常观赛的辅助工具。
+  </p>
+
+  <div class="footer-note">
+    基于公开信息整理 · 仅供观赛参考
+  </div>
+
+</main>
+
+</body>
+</html>
